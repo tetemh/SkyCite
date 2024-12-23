@@ -54,6 +54,7 @@ subprojects {
 
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'com.jcraft:jsch:0.1.55'
+        implementation 'fr.mrmicky:FastInv:3.1.1'
         implementation 'io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT'
 
         testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
@@ -69,6 +70,7 @@ subprojects {
 
     // Configuration de ShadowJar
     shadowJar {
+        relocate 'fr.mrmicky.fastinv', 'fr.skyserver.fastinv'
         archiveBaseName.set("${project.name}")
         archiveClassifier.set('all')  // Ajouter un suffixe si nécessaire (ex: -all)
         destinationDirectory.set(file("$rootDir/server/plugins"))  // Spécifier le répertoire de sortie

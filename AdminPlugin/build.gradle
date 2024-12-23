@@ -12,3 +12,9 @@ repositories {
 dependencies {
     implementation project(":CorePlugin")
 }
+
+shadowJar {
+    dependencies {
+        exclude(dependency(':CorePlugin'))
+    }
+}

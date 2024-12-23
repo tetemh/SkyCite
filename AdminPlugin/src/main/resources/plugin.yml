@@ -5,3 +5,7 @@ api-version: 1.20
 author: tetemh
 depend:
   - CorePlugin
+commands:
+  admin:
+    description: Admin Command
+    permission: adminplugin.adminpanel
