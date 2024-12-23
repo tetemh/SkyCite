@@ -17,6 +17,7 @@ public abstract class Manager<T> {
     protected Manager(CorePlugin plugin) {
         this.corePlugin = plugin;
         this.load();
+        this.registerListeners();
     }
 
     public void add(T entity) {

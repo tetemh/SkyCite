@@ -21,5 +21,6 @@ public class OnJoinEvent implements Listener {
     void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         this.getCorePlugin().getCPlayerManager().add(new CPlayer(player));
+//        System.out.println("Join : " + player.getName());
     }
 }

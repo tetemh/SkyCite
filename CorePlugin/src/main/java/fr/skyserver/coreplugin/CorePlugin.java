@@ -16,7 +16,7 @@ public class CorePlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.println("Core Plugin OK !");
+        this.getLogger().info("Starting CorePlugin...");
         instance = this;
 
         this.setCPlayerManager(new CPlayerManager(this));

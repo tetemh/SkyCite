@@ -11,11 +11,13 @@ public class AdminPlugin extends JavaPlugin {
 
     @Getter @Setter
     private static CorePlugin corePlugin;
+
+    @Getter @Setter
     private CPlayerManager cPlayerManager;
 
     @Override
     public void onEnable() {
-        System.out.println("Admin Plugin OK !");
+        this.getLogger().info("Starting AdminPlugin...");
 
         if (!Bukkit.getServer().getPluginManager().isPluginEnabled("CorePlugin")) {
             getLogger().severe("Erreur critique : Le plugin CorePlugin n'est pas chargé");

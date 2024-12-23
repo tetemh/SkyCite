@@ -57,7 +57,7 @@ subprojects {
         implementation 'io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT'
 
         testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-        testImplementation 'org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.0.0'
+        testImplementation 'org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.21.0'
     }
 
     test {

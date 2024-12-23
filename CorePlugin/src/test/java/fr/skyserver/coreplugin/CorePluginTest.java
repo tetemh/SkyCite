@@ -1,12 +1,13 @@
 package fr.skyserver.coreplugin;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockbukkit.mockbukkit.MockBukkit;
 import org.mockbukkit.mockbukkit.ServerMock;
 import org.mockbukkit.mockbukkit.entity.PlayerMock;
 
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.*;
 
 public class CorePluginTest {
 
@@ -23,13 +24,16 @@ public class CorePluginTest {
 
     @Test
     void playerJoinsServer() {
-        // Create a test plugin
-        CorePlugin plugin = MockBukkit.load(CorePlugin.class);
-
-        // Simulate a player joining
         PlayerMock player = server.addPlayer();
 
-        assumeTrue(corePlugin.getCPlayerManager().getEntities().isEmpty());
+        assumeFalse(corePlugin.getCPlayerManager().getEntities().isEmpty());
+
+    }
+
+    @AfterEach
+    public void tearDown()
+    {
+        MockBukkit.unmock();
     }
 
 
