@@ -1,0 +1,82 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.0.0'  // Assure-toi d'ajouter le plugin Shadow
+}
+
+group = 'com.skyserver'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+tasks.named('compileJava').configure {
+    onlyIf { false }
+}
+
+tasks.named('processResources').configure {
+    onlyIf { false }
+}
+
+tasks.named('shadowJar').configure {
+    onlyIf { false }
+}
+
+task uploadJarsToServerSCP {
+    doLast {
+        def command = "scp -r $rootDir/server/plugins/* root@skyserver.fr:/home/test-server/plugins" // Remplace par ta commande
+        def process = command.execute()  // Exécution de la commande
+        def output = new StringBuffer()
+        def error = new StringBuffer()
+
+        process.consumeProcessOutput(output, error)  // Capture la sortie et les erreurs
+        process.waitFor()  // Attend la fin de l'exécution
+
+        if (process.exitValue() != 0) {
+            println "Erreur : $error"
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'  // Applique Shadow à chaque sous-projet
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.papermc.io/repository/maven-public/' }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.36'
+        annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+        implementation 'org.apache.commons:commons-lang3:3.12.0'
+        implementation 'com.jcraft:jsch:0.1.55'
+        implementation 'io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT'
+    }
+
+    sourceCompatibility = '22'
+    targetCompatibility = '22'
+
+    // Configuration de ShadowJar
+    shadowJar {
+        archiveBaseName.set("${project.name}")
+        archiveClassifier.set('all')  // Ajouter un suffixe si nécessaire (ex: -all)
+        destinationDirectory.set(file("$rootDir/server/plugins"))  // Spécifier le répertoire de sortie
+    }
+
+    if (project.name == 'SkyServer') {
+        tasks.withType(JavaCompile) {
+            enabled = false
+        }
+
+        tasks.withType(ProcessResources) {
+            enabled = false
+        }
+
+        tasks.withType(ShadowJar) {
+            enabled = false
+        }
+    }
+}

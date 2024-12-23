@@ -1,0 +1,4 @@
+rootProject.name = 'SkyServer'
+include 'CorePlugin'
+include 'AdminPlugin'
+
