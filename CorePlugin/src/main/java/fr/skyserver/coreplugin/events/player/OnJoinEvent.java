@@ -1,6 +1,7 @@
 package fr.skyserver.coreplugin.events.player;
 
 import fr.skyserver.coreplugin.CorePlugin;
+import fr.skyserver.coreplugin.customclass.CPlayer;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,6 @@ public class OnJoinEvent implements Listener {
     @EventHandler
     void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-
+        this.getCorePlugin().getCPlayerManager().add(new CPlayer(player));
     }
 }
